@@ -315,7 +315,7 @@ int main(int argc, char *argv[]) {
     }
 
     printf("Quadros;Referencias;FIFO;LRU;OPT\n");
-    for (int i = 1; i <= 7; i++) {
+    for (int i = 64; i <= 4096; i *= 2) {
         int faltas_fifo = simularFIFO(i, referencias_paginas, num_referencias);
         int faltas_lru = simularLRU(i, referencias_paginas, num_referencias); 
         int faltas_opt = simularOPT(i, referencias_paginas, num_referencias);
