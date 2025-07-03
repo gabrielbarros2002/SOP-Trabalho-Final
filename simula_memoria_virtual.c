@@ -14,7 +14,7 @@ int simularFIFO(int num_quadros, int* referencias_paginas, int num_referencias) 
 
     int indice_proximo_a_sair = 0; // Ponteiro para o elemento mais antigo (o próximo a ser removido)
 
-    printf("Simulando FIFO com %d quadros e %d referencias:\n", num_quadros, num_referencias);
+    // printf("Simulando FIFO com %d quadros e %d referencias:\n", num_quadros, num_referencias);
 
     for (int i = 0; i < num_referencias; i++) {
         int pagina_atual = referencias_paginas[i];
@@ -38,29 +38,29 @@ int simularFIFO(int num_quadros, int* referencias_paginas, int num_referencias) 
                                                                           // Se chegar ao final, volta para o início
 
             // Opcional: Imprimir o estado atual dos quadros após a falta de página
-            printf("  Pagina %d: PF! Quadros: [", pagina_atual);
-            for (int k = 0; k < num_quadros; k++) {
-                if (quadros[k] != -1) {
-                    printf("%d ", quadros[k]);
-                } else {
-                    printf("_ "); // Indica quadro vazio
-                }
-            }
-            printf("]\n");
+            // printf("  Pagina %d: PF! Quadros: [", pagina_atual);
+            // for (int k = 0; k < num_quadros; k++) {
+            //     if (quadros[k] != -1) {
+            //         printf("%d ", quadros[k]);
+            //     } else {
+            //         printf("_ "); // Indica quadro vazio
+            //     }
+            // }
+            // printf("]\n");
         } else {
             // Página encontrada na memória (Acerto)
-            printf("  Pagina %d: Acerto. Quadros: [", pagina_atual);
-            for (int k = 0; k < num_quadros; k++) {
-                if (quadros[k] != -1) {
-                    printf("%d ", quadros[k]);
-                } else {
-                    printf("_ ");
-                }
-            }
-            printf("]\n");
+            // printf("  Pagina %d: Acerto. Quadros: [", pagina_atual);
+            // for (int k = 0; k < num_quadros; k++) {
+            //     if (quadros[k] != -1) {
+            //         printf("%d ", quadros[k]);
+            //     } else {
+            //         printf("_ ");
+            //     }
+            // }
+            // printf("]\n");
         }
     }
-    printf("\n");
+    // printf("\n");
 
     free(quadros); // Libera a memória alocada
     return faltas_pagina;
@@ -82,7 +82,7 @@ int simularLRU(int num_quadros, int* referencias_paginas, int num_referencias) {
         tempos_ultimo_uso[i] = 0; // Inicializa com 0 (ou qualquer valor que indique "nunca usado")
     }
 
-    printf("Simulando LRU com %d quadros e %d referencias:\n", num_quadros, num_referencias); // Removido para saída final
+    // printf("Simulando LRU com %d quadros e %d referencias:\n", num_quadros, num_referencias); // Removido para saída final
 
     for (int i = 0; i < num_referencias; i++) {
         int pagina_atual = referencias_paginas[i];
@@ -101,15 +101,15 @@ int simularLRU(int num_quadros, int* referencias_paginas, int num_referencias) {
         if (pagina_encontrada) {
             // Se a página foi encontrada, atualiza seu tempo de último uso para o tempo atual
             tempos_ultimo_uso[indice_quadro_encontrado] = i; // 'i' é o índice da referência atual, servindo como "tempo"
-            printf("  Pagina %d: Acerto. Quadros: [", pagina_atual); // Opcional: Imprimir estado
-            for (int k = 0; k < num_quadros; k++) {
-                if (quadros[k] != -1) {
-                    printf("%d:%d ", quadros[k], tempos_ultimo_uso[k]);
-                } else {
-                    printf("_:_ ");
-                }
-            }
-            printf("]\n");
+            // printf("  Pagina %d: Acerto. Quadros: [", pagina_atual); // Opcional: Imprimir estado
+            // for (int k = 0; k < num_quadros; k++) {
+            //     if (quadros[k] != -1) {
+            //         printf("%d:%d ", quadros[k], tempos_ultimo_uso[k]);
+            //     } else {
+            //         printf("_:_ ");
+            //     }
+            // }
+            // printf("]\n");
         } else {
             // Falta de Página (Page Fault)!
             faltas_pagina++;
@@ -142,18 +142,18 @@ int simularLRU(int num_quadros, int* referencias_paginas, int num_referencias) {
                 tempos_ultimo_uso[indice_para_substituir] = i;  // Atualiza o tempo de uso da nova página
             }
 
-            printf("  Pagina %d: PF! Quadros: [", pagina_atual); // Opcional: Imprimir estado
-            for (int k = 0; k < num_quadros; k++) {
-                if (quadros[k] != -1) {
-                    printf("%d:%d ", quadros[k], tempos_ultimo_uso[k]);
-                } else {
-                    printf("_:_ ");
-                }
-            }
-            printf("]\n");
+            // printf("  Pagina %d: PF! Quadros: [", pagina_atual); // Opcional: Imprimir estado
+            // for (int k = 0; k < num_quadros; k++) {
+            //     if (quadros[k] != -1) {
+            //         printf("%d:%d ", quadros[k], tempos_ultimo_uso[k]);
+            //     } else {
+            //         printf("_:_ ");
+            //     }
+            // }
+            // printf("]\n");
         }
     }
-    printf("\n");
+    // printf("\n");
 
     free(quadros);         // Libera a memória alocada para os quadros
     free(tempos_ultimo_uso); // Libera a memória alocada para os tempos de uso
@@ -211,7 +211,7 @@ int simularOPT(int num_quadros, int* referencias_paginas, int num_referencias) {
         quadros[i] = -1;
     }
 
-    printf("Simulando OPT com %d quadros e %d referencias:\n", num_quadros, num_referencias); // Removido para saída final
+    // printf("Simulando OPT com %d quadros e %d referencias:\n", num_quadros, num_referencias); // Removido para saída final
 
     for (int i = 0; i < num_referencias; i++) {
         int pagina_atual = referencias_paginas[i];
@@ -247,29 +247,29 @@ int simularOPT(int num_quadros, int* referencias_paginas, int num_referencias) {
             }
 
             // Opcional: Imprimir o estado atual dos quadros
-            printf("  Pagina %d: PF! Quadros: [", pagina_atual);
-            for (int k = 0; k < num_quadros; k++) {
-                if (quadros[k] != -1) {
-                    printf("%d ", quadros[k]);
-                } else {
-                    printf("_ ");
-                }
-            }
-            printf("]\n");
+            // printf("  Pagina %d: PF! Quadros: [", pagina_atual);
+            // for (int k = 0; k < num_quadros; k++) {
+            //     if (quadros[k] != -1) {
+            //         printf("%d ", quadros[k]);
+            //     } else {
+            //         printf("_ ");
+            //     }
+            // }
+            // printf("]\n");
         } else {
-            // Página encontrada na memória (Acerto)
-            printf("  Pagina %d: Acerto. Quadros: [", pagina_atual);
-            for (int k = 0; k < num_quadros; k++) {
-                if (quadros[k] != -1) {
-                    printf("%d ", quadros[k]);
-                } else {
-                    printf("_ ");
-                }
-            }
-            printf("]\n");
+            // // Página encontrada na memória (Acerto)
+            // printf("  Pagina %d: Acerto. Quadros: [", pagina_atual);
+            // for (int k = 0; k < num_quadros; k++) {
+            //     if (quadros[k] != -1) {
+            //         printf("%d ", quadros[k]);
+            //     } else {
+            //         printf("_ ");
+            //     }
+            // }
+            // printf("]\n");
         }
     }
-    printf("\n");
+    // printf("\n");
 
     free(quadros); // Libera a memória alocada
     return faltas_pagina;
@@ -314,15 +314,25 @@ int main(int argc, char *argv[]) {
         referencias_paginas[num_referencias++] = referencia_pagina;
     }
 
+    printf("Quadros;Referencias;FIFO;LRU;OPT\n");
+    for (int i = 1; i <= 7; i++) {
+        int faltas_fifo = simularFIFO(i, referencias_paginas, num_referencias);
+        int faltas_lru = simularLRU(i, referencias_paginas, num_referencias); 
+        int faltas_opt = simularOPT(i, referencias_paginas, num_referencias);
+
+        printf("%5d;%7d;%5d;%5d;%5d\n",
+           i, num_referencias, faltas_fifo, faltas_lru, faltas_opt);
+    }
+
     // Agora você chamaria as funções de simulação para cada algoritmo
-    int faltas_fifo = simularFIFO(num_quadros, referencias_paginas, num_referencias);
-    int faltas_lru = simularLRU(num_quadros, referencias_paginas, num_referencias); 
-    int faltas_opt = simularOPT(num_quadros, referencias_paginas, num_referencias);
+    
 
     // Saída final conforme especificado no enunciado [cite: 17, 18, 19, 20, 21]
     // Apenas a linha abaixo deve ser impressa no final
-    printf("%5d quadros, %7d refs: FIFO: %5d PFs, LRU: %5d PFs, OPT: %5d PFs\n",
-           num_quadros, num_referencias, faltas_fifo, faltas_lru, faltas_opt);
+    // printf("%5d quadros, %7d refs: FIFO: %5d PFs, LRU: %5d PFs, OPT: %5d PFs\n",
+    //        num_quadros, num_referencias, faltas_fifo, faltas_lru, faltas_opt);
+    
+    
 
     free(referencias_paginas); // Libera a memória alocada para as referências
     return 0;
