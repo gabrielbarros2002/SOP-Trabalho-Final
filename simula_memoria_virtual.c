@@ -29,7 +29,6 @@ int main(int argc, char *argv[]) {
     }
 
     int referencia_pagina;
-    // Lendo as referências de página do arquivo referenciado
     while (scanf("%d", &referencia_pagina) == 1) {
         if (num_referencias == capacidade) {
             capacidade *= 2;
@@ -51,7 +50,7 @@ int main(int argc, char *argv[]) {
     printf("%5d quadros, %7d refs: FIFO: %5d PFs, LRU: %5d PFs, OPT: %5d PFs\n",
            num_quadros, num_referencias, faltas_fifo, faltas_lru, faltas_opt);
     
-    free(referencias_paginas); // Libera a memória alocada para as referências
+    free(referencias_paginas);
     return 0;
 }
 
@@ -81,8 +80,7 @@ int simularFIFO(int num_quadros, int* referencias_paginas, int num_referencias) 
         if (!pagina_encontrada) {
             faltas_pagina++;
 
-            // Coloca a nova página no lugar da página mais antiga
-            quadros[indice_proximo_a_sair] = pagina_atual;
+            quadros[indice_proximo_a_sair] = pagina_atual; // Coloca a nova página no lugar da página mais antiga
             indice_proximo_a_sair = (indice_proximo_a_sair + 1) % num_quadros; // Move o ponteiro para o próximo quadro (circular)
         }
     }
