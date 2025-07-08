@@ -59,6 +59,7 @@ int simularFIFO(int num_quadros, int* referencias_paginas, int num_referencias) 
     int faltas_pagina = 0;
     int* quadros = (int*)malloc(num_quadros * sizeof(int));
 
+    // Inicia os quadros como vazio (-1)
     for (int i = 0; i < num_quadros; i++) {
         quadros[i] = -1;
     }
@@ -78,7 +79,7 @@ int simularFIFO(int num_quadros, int* referencias_paginas, int num_referencias) 
         }
 
         if (!pagina_encontrada) {
-            faltas_pagina++;
+            faltas_pagina++; // Aumenta o contador de falta de páginas
 
             quadros[indice_proximo_a_sair] = pagina_atual; // Coloca a nova página no lugar da página mais antiga
             indice_proximo_a_sair = (indice_proximo_a_sair + 1) % num_quadros; // Move o ponteiro para o próximo quadro (circular)
@@ -94,6 +95,7 @@ int simularLRU(int num_quadros, int* referencias_paginas, int num_referencias) {
     int faltas_pagina = 0;
     int* quadros = (int*)malloc(num_quadros * sizeof(int));
 
+    // Inicia os quadros como vazio (-1)
     for (int i = 0; i < num_quadros; i++) {
         quadros[i] = -1;
     }
@@ -101,7 +103,7 @@ int simularLRU(int num_quadros, int* referencias_paginas, int num_referencias) {
     // Array para armazenar o "tempo" da última vez que cada página foi usada.
     int* tempos_ultimo_uso = (int*)malloc(num_quadros * sizeof(int));
     for (int i = 0; i < num_quadros; i++) {
-        tempos_ultimo_uso[i] = 0; // Inicializa com 0 (ou qualquer valor que indique "nunca usado")
+        tempos_ultimo_uso[i] = 0; // Inicializa com 0 para indicar que não foi usado
     }
 
     for (int i = 0; i < num_referencias; i++) {
@@ -119,11 +121,10 @@ int simularLRU(int num_quadros, int* referencias_paginas, int num_referencias) {
         }
 
         if (pagina_encontrada) {
-            // Se a página foi encontrada, atualiza seu tempo de último uso para o tempo atual
-            tempos_ultimo_uso[indice_quadro_encontrado] = i; // 'i' é o índice da referência atual, servindo como "tempo"
+            // Se a página foi encontrada, atualiza seu tempo de último uso para o tempo atual (i)
+            tempos_ultimo_uso[indice_quadro_encontrado] = i;
         } else {
-            // Falta de Página (Page Fault)!
-            faltas_pagina++;
+            faltas_pagina++; // Aumenta o contador de falta de páginas
 
             // Primeiro, verifica se há quadros vazios
             bool quadro_vazio_encontrado = false;
@@ -165,6 +166,7 @@ int simularOPT(int num_quadros, int* referencias_paginas, int num_referencias) {
     int faltas_pagina = 0;
     int* quadros = (int*)malloc(num_quadros * sizeof(int));
 
+    // Inicia os quadros como vazio (-1)
     for (int i = 0; i < num_quadros; i++) {
         quadros[i] = -1;
     }
@@ -182,8 +184,7 @@ int simularOPT(int num_quadros, int* referencias_paginas, int num_referencias) {
         }
 
         if (!pagina_encontrada) {
-            // Falta de Página
-            faltas_pagina++;
+            faltas_pagina++; // Aumenta o contador de falta de páginas
 
             // Primeiro, verifica se há quadros vazios
             bool quadro_vazio_encontrado = false;
@@ -196,8 +197,6 @@ int simularOPT(int num_quadros, int* referencias_paginas, int num_referencias) {
             }
 
             if (!quadro_vazio_encontrado) {
-                // Se não há quadros vazios, precisamos substituir.
-                // Usa a função auxiliar para encontrar a página a ser substituída.
                 int indice_para_substituir = encontrarPaginaParaSubstituir_OPT(quadros, num_quadros, referencias_paginas, num_referencias, i);
                 quadros[indice_para_substituir] = pagina_atual;
             }
@@ -209,7 +208,6 @@ int simularOPT(int num_quadros, int* referencias_paginas, int num_referencias) {
 }
 
 // Função auxiliar para encontrar qual página substituir no OPT
-// Retorna o índice do quadro que deve ser substituído
 int encontrarPaginaParaSubstituir_OPT(int* quadros, int num_quadros, int* referencias_paginas, int num_referencias, int indice_atual_ref) {
     int indice_substituir = -1;
     int max_distancia_futura = -1; // Armazena a maior distância para o próximo uso
@@ -229,8 +227,7 @@ int encontrarPaginaParaSubstituir_OPT(int* quadros, int num_quadros, int* refere
         }
 
         if (!encontrada_no_futuro) {
-            // Se a página não será mais usada no futuro, ela é a melhor candidata
-            return i;
+            return i; // Se a página não será mais usada no futuro, ela é a melhor candidata
         }
 
         // Atualiza o candidato se esta página for usada mais tarde que a atual `max_distancia_futura`
